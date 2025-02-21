@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akash Maurya</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header class='header'>
+        <a href="#" class="logo"> <span>Ak</span>ash</a>
+
+        <nav class="navbar">
+            <a href="{{ url_for('home')}}" class='active'>Portfolio</a>
+            <a href="{{ url_for('projects')}}">Projects</a>
+            <a href="{{url_for('faq')}}">Experience</a>
+            <a href="#bottom" id="scrollToBottombtn">Connect With Me</a>
+            <a href="{{url_for('edu')}}">Education</a>
+
+        </nav>
+
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-content">
+            <h3>Hi</h3>
+            <h1>I'm <span>Akash <br></span>a Data Scientist</h1>
+
+            <p> As a <span>UNIQE</span> Machine Learning developer ,I bring a strong foundation
+                in data science and software engeineering to design,build,and
+                deploy with high performance <span>AI</span> models,with expertise
+                in the full ML lifecycle from data preprocessing to model optimization and deployment <br>
+                <span>**</span>
+            </p>
+            <div class="btn-box">
+                <button class="btn-1"><a style="color: white;" href="https://www.linkedin.com/in/sky-m">Hire
+                        me!</a></button>
+                <button class="btn-2"><a style="color: white;" href="{{url_for('status')}}">Resume</a></button>
+            </div>
+        </div>
+        <div class="img-box">
+            <img src="{{ url_for('static', filename='images/Profile picture (2).png') }}" alt="My Image">
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="{{ url_for('static', filename='images/Profile picture (2).png') }}" alt="My Image">
+        </div>
+        <div class="about-content">
+            <h2 class="heading"> About <span>Me</span></h2>
+            <h3>Data <span>Scientist</span></h3>
+            <p>
+                My Name is <span style="color: orangered;">Akash Maurya</span> ipsum dolor sit amet consectetur
+                adipisicing elit. Rerum sapiente
+                numquam facilis dolores
+                nostrum
+            </p>
+            <h4 class="serve"><b>+ </b>Machine <span style="color: orangered;">Learning</span></h4>
+            <h4 class="serve"><b>+ </b>D<span style="color: orangered;">BM</span>S</h4>
+            <h4 class="serve"><b>+ </b>Application<span style="color: orangered;">Development</span> </h4>
+            <h4 class="serve" style="margin-bottom: 20px;"><b>+ </b>Web <span
+                    style=" color: orangered;">Development</span></h4>
+            <a href="{{url_for('faq')}}" class="btn-2">More..</a>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="social" id="bottom">
+            <a href="https://github.com/sky-m1618" target="_blank" rel="noopener noreferrer"><i
+                    class='bx bxl-github'></i></a>
+            <a href="https://www.linkedin.com/in/sky-m" target="_blank" rel="noopener noreferrer"><i
+                    class='bx bxl-linkedin'></i></a>
+            <a href="https://www.instagram.com/akashm_00009/" target="_blank" rel="noopener noreferrer"><i
+                    class='bx bxl-instagram'></i></a>
+            <a href="{{url_for('twiter')}}"><i class='bx bxl-twitter'></i></a>
+            <a href="https://leetcode.com/u/UX3tMUVEeX/" target="_blank" rel="noopener noreferrer"><i
+                    class='bx bx-code-alt'></i></a>
+        </div>
+        <ul class="list">
+            <li>
+                <a href="{{url_for('faq')}}">FAQ</a>
+            </li>
+            <li>
+                <a href="#about">About Me</a>
+            </li>
+            <li>
+                <a href="{{url_for('faq')}}">Services</a>
+            </li>
+            <li>
+                <a href="{{url_for('contact')}}">Contact</a>
+            </li>
+            <li>
+                <a href="{{url_for('reso')}}">Resources</a>
+            </li>
+        </ul>
+
+        <p class="copyright"> &copy; 2025 Akash | All Rights Reserved</p>
+        <p class="copyright">+91 8563071165</p>
+        <p class="copyright">akashmbytes@gmail.com</p>
+        <p class="copyright">*copied from google</p>
+    </footer>
+
+
+
+
+    <script>
+        const scrollToBottombtn =
+            document.getElementById('scrollToBottombtn');
+
+
+        scrollToBottombtn.addEventListener('click', () => {
+            bottomElement.scrollIntoView({ behavior: 'smooth' });
+        })
+    </script>
+</body>
+
+</html>

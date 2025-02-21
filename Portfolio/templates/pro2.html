@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class='header'>
+        <a href="#" class="logo"> <span>Ak</span>ash</a>
+
+        <nav class="navbar">
+            <a href="{{ url_for('home')}}" class='active'>Portfolio</a>
+            <a href="{{ url_for('projects')}}">Projects</a>
+            <a href="{{url_for('faq')}}">Experience</a>
+            <a href="#bottom" id="scrollToBottombtn">Connect With Me</a>
+            <a href="{{url_for('edu')}}">Education</a>
+
+        </nav>
+
+    </header>
+
+    <main>
+        <section class="project">
+            <div class="title">
+                <h1>What</h1>
+                <h2>I Made</h2>
+            </div>
+        </section>
+        <section class="project">
+            <img src="project1-image.jpg" alt="Project 1">
+            <div class="project-details">
+                <h2>Project Title 1</h2>
+                <p>A brief description of Project 1. Highlight the technologies used and the problem it solves.</p>
+                <a href="project1-link.html" target="_blank">View Project</a>
+            </div>
+        </section>
+
+        <section class="project">
+            <img src="project2-image.jpg" alt="Project 2">
+            <div class="project-details">
+                <h2>Project Title 2</h2>
+                <p>A brief description of Project 2. Highlight the technologies used and the problem it solves.</p>
+                <a href="project2-link.html" target="_blank">View Project</a>
+            </div>
+        </section>
+
+        <!-- Add more project sections as needed -->
+    </main>
+
+    <footer class="footer">
+        <div class="social" id="bottom">
+            <a href="https://github.com/sky-m1618" target="_blank" rel="noopener noreferrer"><i
+                    class='bx bxl-github'></i></a>
+            <a href="https://www.linkedin.com/in/sky-m" target="_blank" rel="noopener noreferrer"><i
+                    class='bx bxl-linkedin'></i></a>
+            <a href="https://www.instagram.com/akashm_00009/" target="_blank" rel="noopener noreferrer"><i
+                    class='bx bxl-instagram'></i></a>
+            <a href="{{url_for('twiter')}}"><i class='bx bxl-twitter'></i></a>
+            <a href="https://leetcode.com/u/UX3tMUVEeX/" target="_blank" rel="noopener noreferrer"><i
+                    class='bx bx-code-alt'></i></a>
+        </div>
+        <ul class="list">
+            <li>
+                <a href="{{url_for('faq')}}">FAQ</a>
+            </li>
+            <li>
+                <a href="#about">About Me</a>
+            </li>
+            <li>
+                <a href="{{url_for('faq')}}">Services</a>
+            </li>
+            <li>
+                <a href="{{url_for('contact')}}">Contact</a>
+            </li>
+            <li>
+                <a href="{{url_for('reso')}}">Resources</a>
+            </li>
+        </ul>
+
+        <p class="copyright"> &copy; 2025 Akash | All Rights Reserved</p>
+        <p class="copyright">+91 8563071165</p>
+        <p class="copyright">akashmbytes@gmail.com</p>
+    </footer>
+
+</body>
+
+</html>
