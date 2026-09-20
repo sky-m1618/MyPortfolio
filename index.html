@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akash Maurya | Terminal Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --primary-color: #00ff41; /* Classic Matrix Green */
+            --secondary-color: #00ffff; /* Cyberpunk Cyan */
+            --accent-color: #ff003c; /* Cyberpunk Red */
+            --panel-bg: rgba(0, 25, 0, 0.3);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Font Assignments based on instructions */
+        .font-main-title {
+            font-family: 'Press Start 2P', cursive;
+            line-height: 1.5;
+        }
+        
+        .font-section-header {
+            font-family: 'Share Tech Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .font-terminal-ui {
+            font-family: 'VT323', monospace;
+            font-size: 1.25rem;
+        }
+        
+        .font-body-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* CRT Effects */
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Animations */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+            display: inline-block;
+            width: 12px;
+            height: 1em;
+            background-color: var(--primary-color);
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .glow-text-cyan {
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        .glow-text-green {
+            color: var(--primary-color);
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+        }
+
+        /* Terminal Window Styling */
+        .terminal-window {
+            border: 1px solid var(--primary-color);
+            background: var(--panel-bg);
+            box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.1), 0 0 15px rgba(0, 255, 65, 0.2);
+            position: relative;
+        }
+        
+        .terminal-header {
+            border-bottom: 1px solid var(--primary-color);
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        /* Navigation Tabs */
+        .nav-tab {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .nav-tab:hover {
+            background-color: rgba(0, 255, 65, 0.2);
+            color: var(--secondary-color);
+        }
+        .nav-tab.active {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
+
+    <!-- CRT Scanline overlay -->
+    <div class="crt-overlay"></div>
+
+    <div id="app" class="w-full max-w-5xl z-10 relative">
+        
+        <!-- Main Header -->
+        <header class="mb-8 text-center sm:text-left">
+            <h1 class="font-main-title text-2xl sm:text-3xl md:text-4xl text-white mb-2 glow-text-green break-words">
+                {{ profile.name }}
+            </h1>
+            <div class="font-terminal-ui text-xl text-gray-400">
+                <span class="text-green-500">SYS_ADMIN@VARANASI:~</span>$ ./fetch_profile.sh<span class="cursor-blink"></span>
+            </div>
+        </header>
+
+        <!-- Terminal Container -->
+        <div class="terminal-window rounded-sm flex flex-col min-h-[60vh]">
+            
+            <!-- Terminal Header Controls -->
+            <div class="terminal-header p-2 flex justify-between items-center font-terminal-ui text-sm sm:text-base">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div>AKASH_MAURYA_OS_v3.0</div>
+                <div class="text-xs">Uptime: {{ uptime }}</div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="flex flex-wrap border-b border-green-500/50 font-terminal-ui">
+                <button 
+                    v-for="tab in tabs" 
+                    :key="tab.id"
+                    @click="currentTab = tab.id"
+                    class="nav-tab px-4 py-2 sm:px-6 sm:py-3 border-r border-green-500/50 uppercase"
+                    :class="{'active': currentTab === tab.id}">
+                    [{{ tab.label }}]
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6 flex-grow">
+                
+                <transition name="fade" mode="out-in">
+                    <div v-if="currentTab === 'about'" class="space-y-6">
+                        <h2 class="font-section-header text-2xl glow-text-cyan border-b border-cyan-500/30 pb-2 inline-block">
+                            > USER_BIO
+                        </h2>
+                        
+                        <div class="font-body-text space-y-4 text-gray-300">
+                            <p>
+                                <span class="text-green-400 font-bold">NAME:</span> {{ profile.name }}<br>
+                                <span class="text-green-400 font-bold">AGE:</span> {{ profile.age }}<br>
+                                <span class="text-green-400 font-bold">BASE_LOCATION:</span> {{ profile.location }}
+                            </p>
+                            
+                            <p class="leading-relaxed">
+                                Executing educational directives... Currently a Computer Science student at <span class="text-cyan-400">IIT Madras Online</span> (BS in CS). System capabilities have been augmented with dual diplomas in <span class="text-cyan-400">Data Science</span> and <span class="text-cyan-400">Programming</span>.
+                            </p>
+                            
+                            <div class="p-4 border border-green-800 bg-green-900/20 rounded">
+                                <p class="text-sm font-terminal-ui text-green-400 mb-2">// BACKGROUND_PROCESSES</p>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li v-for="interest in profile.interests" :key="interest">
+                                        {{ interest }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-else-if="currentTab === 'skills'" class="space-y-6">
+                        <h2 class="font-section-header text-2xl glow-text-cyan border-b border-cyan-500/30 pb-2 inline-block">
+                            > TECH_STACK
+                        </h2>
+                        
+                        <div class="font-terminal-ui text-lg mb-4 text-gray-400">
+                            Loading modules... [OK]
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-terminal-ui">
+                            <div v-for="(skill, index) in profile.skills" :key="skill" 
+                                class="border border-green-500/30 p-4 hover:border-cyan-500 transition-colors bg-black/40 group relative overflow-hidden">
+                                <div class="absolute inset-0 bg-green-500/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                                <div class="relative z-10 flex items-center justify-between">
+                                    <span class="text-xl text-green-300 group-hover:text-cyan-300 transition-colors">{{ skill }}</span>
+                                    <span class="text-xs text-gray-500">v{{ 1 + index }}.0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="font-body-text mt-8 text-sm text-gray-500 border-t border-gray-800 pt-4">
+                            System heavily optimized for Machine Learning architectures and modern web frameworks.
+                        </div>
+                    </div>
+
+                    <div v-else-if="currentTab === 'projects'" class="space-y-6">
+                        <h2 class="font-section-header text-2xl glow-text-cyan border-b border-cyan-500/30 pb-2 inline-block">
+                            > DEPLOYMENTS
+                        </h2>
+
+                        <div class="space-y-6">
+                            <div v-for="project in profile.projects" :key="project.title" 
+                                class="border-l-2 border-green-500 pl-4 py-2 hover:bg-green-900/10 transition-colors">
+                                <h3 class="font-terminal-ui text-xl text-cyan-400 mb-2">
+                                    ~/projects/{{ project.title.toLowerCase().replace(/ /g, '_') }}
+                                </h3>
+                                <div class="font-section-header text-lg mb-2 text-white">{{ project.title }}</div>
+                                <p class="font-body-text text-gray-300 text-sm">
+                                    {{ project.description }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
+            </div>
+            
+            <!-- Terminal Footer -->
+            <div class="bg-black border-t border-green-900 p-2 font-terminal-ui text-xs text-gray-500 flex justify-between">
+                <span>STATUS: ONLINE</span>
+                <span>DATA_ENCRYPTED</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted, onUnmounted } = Vue;
+
+        createApp({
+            setup() {
+                const currentTab = ref('about');
+                const uptime = ref('00:00:00');
+                let timer = null;
+                let startTime = Date.now();
+
+                // Navigation configuration
+                const tabs = [
+                    { id: 'about', label: 'About.sys' },
+                    { id: 'skills', label: 'Skills.exe' },
+                    { id: 'projects', label: 'Projects.log' }
+                ];
+
+                // Data Structure
+                const profile = ref({
+                    name: 'Akash Maurya',
+                    age: 23,
+                    location: 'Varanasi, India',
+                    interests: [
+                        'Physical Fitness & Bio-mechanics',
+                        'Algorithmic Problem Solving (LeetCode)',
+                        'Neural Network Architecture'
+                    ],
+                    skills: [
+                        'Flask',
+                        'Vue.js',
+                        'PyTorch',
+                        'Machine Learning',
+                        'Convolutional Neural Networks (CNNs)',
+                        'Python',
+                        'JavaScript'
+                    ],
+                    projects: [
+                        {
+                            title: 'Placement Portal Application',
+                            description: 'A comprehensive platform designed to streamline the recruitment process. Features robust data handling, user role management, and an intuitive interface built to bridge the gap between candidates and recruiters.'
+                        },
+                        {
+                            title: 'Rohit General Store Data Analysis',
+                            description: 'A data-driven analytical project focused on retail operations. Extracted insights from sales data to optimize inventory management, identify purchasing trends, and improve overall business efficiency.'
+                        },
+                        {
+                            title: 'AI News Channel Workflow',
+                            description: 'An automated pipeline simulating a news broadcast environment. Leveraged AI models to aggregate information, generate scripts, and manage content delivery workflows efficiently.'
+                        }
+                    ]
+                });
+
+                // Update Uptime clock
+                const updateUptime = () => {
+                    const now = Date.now();
+                    const diff = new Date(now - startTime);
+                    const h = String(diff.getUTCHours()).padStart(2, '0');
+                    const m = String(diff.getUTCMinutes()).padStart(2, '0');
+                    const s = String(diff.getUTCSeconds()).padStart(2, '0');
+                    uptime.value = `${h}:${m}:${s}`;
+                };
+
+                onMounted(() => {
+                    timer = setInterval(updateUptime, 1000);
+                });
+
+                onUnmounted(() => {
+                    clearInterval(timer);
+                });
+
+                return {
+                    currentTab,
+                    tabs,
+                    profile,
+                    uptime
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
