@@ -310,8 +310,12 @@
 
                         <div class="grid grid-cols-1 gap-6 pb-8">
                             <!-- Project 1 -->
-                            <div class="project-card p-5 rounded font-vt323">
-                                <h3 class="font-space-mono text-xl glow-amber mb-2">> Placement_Portal_App.exe</h3>
+                            <div class="project-card p-5 rounded font-vt323 cursor-pointer" @click="toggleProject(0)">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-space-mono text-xl glow-amber mb-2">> Placement_Portal_App.exe</h3>
+                                    <span class="text-[#39ff14] text-2xl font-bold">{{ expandedProjects[0] ? '−' : '+'
+                                        }}</span>
+                                </div>
                                 <p class="text-gray-300 text-lg mb-3">A comprehensive platform streamlining the
                                     placement process for students and recruiters. Built with robust user authentication
                                     and dashboard tracking.</p>
@@ -320,11 +324,37 @@
                                     <span class="bg-[#39ff14] px-2 py-1 rounded">Flask</span>
                                     <span class="bg-[#39ff14] px-2 py-1 rounded">SQL</span>
                                 </div>
+
+                                <!-- Expanded Details -->
+                                <div v-if="expandedProjects[0]" class="mt-4 border-t-2 border-[#39ff14] pt-4 space-y-3">
+                                    <div class="text-gray-300">
+                                        <p class="text-[#00f3ff] font-space-mono mb-2">> DETAILED_INFO</p>
+                                        <p class="ml-4">• <span class="text-white">Role:</span> Full-Stack Developer</p>
+                                        <p class="ml-4">• <span class="text-white">Duration:</span> 3 months</p>
+                                        <p class="ml-4">• <span class="text-white">Team Size:</span> 4 members</p>
+                                    </div>
+                                    <div class="text-gray-300">
+                                        <p class="text-[#00f3ff] font-space-mono mb-2">> KEY_FEATURES</p>
+                                        <p class="ml-4">• Student dashboard with job tracking</p>
+                                        <p class="ml-4">• Recruiter portal for posting openings</p>
+                                        <p class="ml-4">• Real-time interview scheduling</p>
+                                        <p class="ml-4">• Automated status notifications</p>
+                                    </div>
+                                    <div class="text-gray-300">
+                                        <p class="text-[#ff003c] font-space-mono mb-2">> GITHUB_LINK</p>
+                                        <a href="#" class="ml-4 text-[#39ff14] hover:glow-green transition-all">>
+                                            github.com/akashmbytes/placement-portal</a>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Project 2 -->
-                            <div class="project-card p-5 rounded font-vt323">
-                                <h3 class="font-space-mono text-xl glow-amber mb-2">> AI_News_Automation.py</h3>
+                            <div class="project-card p-5 rounded font-vt323 cursor-pointer" @click="toggleProject(1)">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-space-mono text-xl glow-amber mb-2">> AI_News_Automation.py</h3>
+                                    <span class="text-[#39ff14] text-2xl font-bold">{{ expandedProjects[1] ? '−' : '+'
+                                        }}</span>
+                                </div>
                                 <p class="text-gray-300 text-lg mb-3">Automated workflow system that scrapes,
                                     summarizes, and categorizes news using LLMs and machine learning, drastically
                                     reducing manual curation time.</p>
@@ -333,11 +363,39 @@
                                     <span class="bg-[#39ff14] px-2 py-1 rounded">NLP</span>
                                     <span class="bg-[#39ff14] px-2 py-1 rounded">API Integration</span>
                                 </div>
+
+                                <!-- Expanded Details -->
+                                <div v-if="expandedProjects[1]" class="mt-4 border-t-2 border-[#39ff14] pt-4 space-y-3">
+                                    <div class="text-gray-300">
+                                        <p class="text-[#00f3ff] font-space-mono mb-2">> DETAILED_INFO</p>
+                                        <p class="ml-4">• <span class="text-white">Role:</span> ML Engineer & Backend
+                                            Dev</p>
+                                        <p class="ml-4">• <span class="text-white">Duration:</span> 2 months</p>
+                                        <p class="ml-4">• <span class="text-white">Impact:</span> 70% time reduction in
+                                            curation</p>
+                                    </div>
+                                    <div class="text-gray-300">
+                                        <p class="text-[#00f3ff] font-space-mono mb-2">> TECH_STACK</p>
+                                        <p class="ml-4">• OpenAI GPT API for summarization</p>
+                                        <p class="ml-4">• BeautifulSoup for web scraping</p>
+                                        <p class="ml-4">• spaCy for NLP categorization</p>
+                                        <p class="ml-4">• PostgreSQL for data storage</p>
+                                    </div>
+                                    <div class="text-gray-300">
+                                        <p class="text-[#ff003c] font-space-mono mb-2">> GITHUB_LINK</p>
+                                        <a href="#" class="ml-4 text-[#39ff14] hover:glow-green transition-all">>
+                                            github.com/akashmbytes/news-automation</a>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Project 3 -->
-                            <div class="project-card p-5 rounded font-vt323">
-                                <h3 class="font-space-mono text-xl glow-amber mb-2">> ML_Analytics_Pipeline.sh</h3>
+                            <div class="project-card p-5 rounded font-vt323 cursor-pointer" @click="toggleProject(2)">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-space-mono text-xl glow-amber mb-2">> ML_Analytics_Pipeline.sh</h3>
+                                    <span class="text-[#39ff14] text-2xl font-bold">{{ expandedProjects[2] ? '−' : '+'
+                                        }}</span>
+                                </div>
                                 <p class="text-gray-300 text-lg mb-3">End-to-end data processing pipeline constructed to
                                     clean, analyze, and run predictive PyTorch models on large datasets for actionable
                                     insights.</p>
@@ -345,6 +403,28 @@
                                     <span class="bg-[#39ff14] px-2 py-1 rounded">PyTorch</span>
                                     <span class="bg-[#39ff14] px-2 py-1 rounded">Data Science</span>
                                     <span class="bg-[#39ff14] px-2 py-1 rounded">Pandas</span>
+                                </div>
+
+                                <!-- Expanded Details -->
+                                <div v-if="expandedProjects[2]" class="mt-4 border-t-2 border-[#39ff14] pt-4 space-y-3">
+                                    <div class="text-gray-300">
+                                        <p class="text-[#00f3ff] font-space-mono mb-2">> DETAILED_INFO</p>
+                                        <p class="ml-4">• <span class="text-white">Role:</span> Data Scientist</p>
+                                        <p class="ml-4">• <span class="text-white">Duration:</span> 4 months</p>
+                                        <p class="ml-4">• <span class="text-white">Dataset Size:</span> 1M+ records</p>
+                                    </div>
+                                    <div class="text-gray-300">
+                                        <p class="text-[#00f3ff] font-space-mono mb-2">> PIPELINE_STAGES</p>
+                                        <p class="ml-4">• Data Ingestion & Validation</p>
+                                        <p class="ml-4">• Feature Engineering & Scaling</p>
+                                        <p class="ml-4">• Model Training with PyTorch</p>
+                                        <p class="ml-4">• Performance Metrics & Deployment</p>
+                                    </div>
+                                    <div class="text-gray-300">
+                                        <p class="text-[#ff003c] font-space-mono mb-2">> GITHUB_LINK</p>
+                                        <a href="#" class="ml-4 text-[#39ff14] hover:glow-green transition-all">>
+                                            github.com/akashmbytes/ml-pipeline</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -374,6 +454,7 @@
                                 <p class="animate-pulse">> Awaiting input...<span class="cursor"></span></p>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -398,6 +479,7 @@
                 const booting = ref(true);
                 const bootLogs = ref([]);
                 const terminalOutput = ref(null);
+                const expandedProjects = ref([false, false, false]);
 
                 const aboutData = ref({
                     name: "Akash Maurya",
@@ -461,6 +543,10 @@
                     }
                 };
 
+                const toggleProject = (index) => {
+                    expandedProjects.value[index] = !expandedProjects.value[index];
+                };
+
                 onMounted(() => {
                     // Simulate boot sequence
                     let delay = 0;
@@ -487,7 +573,9 @@
                     bootLogs,
                     terminalOutput,
                     aboutData,
-                    educationData
+                    educationData,
+                    expandedProjects,
+                    toggleProject
                 }
             }
         }).mount('#app');
